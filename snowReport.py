@@ -25,6 +25,10 @@ with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
     
     
 if __name__ == "__main__":
-    resp = requests.get(f"https://api.openweathermap.org/data/3.0/onecall?lat={LATITUDE}&lon=-{LONGITUDE}&appid={WEATHER_API_KEY}")
+    resp = requests.get(f"https://api.openweathermap.org/data/3.0/onecall?lat={LATITUDE}&lon=-{LONGITUDE}&units=imperial&appid={WEATHER_API_KEY}")
     
     forecast = resp.json()['hourly'][0]
+    snowToday = forecast['weather'][0]['description']
+    if 'snow' in snowToday: #send message if snow hourly, but want accumulation
+    # for returned info I don't see snow accumulation, just generic weather conditions
+    # for now above statement is just looking if it is snowing hourly, not amount.
